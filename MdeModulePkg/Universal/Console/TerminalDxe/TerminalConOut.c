@@ -200,6 +200,10 @@ TerminalConOutOutputString (
   //
   TerminalDevice = TERMINAL_CON_OUT_DEV_FROM_THIS (This);
 
+  if (TerminalDevice->OutputEscChar) {
+    return EFI_SUCCESS;
+  }
+
   //
   //  Get current display mode
   //
@@ -734,6 +738,8 @@ TerminalConOutClearScreen (
 {
   EFI_STATUS    Status;
   TERMINAL_DEV  *TerminalDevice;
+
+  return This->SetCursorPosition (This, 0, 0);
 
   TerminalDevice = TERMINAL_CON_OUT_DEV_FROM_THIS (This);
 
